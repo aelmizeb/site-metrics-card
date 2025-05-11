@@ -1,6 +1,7 @@
 {
   "name": "site-metrics-card",
   "version": "1.0.0",
+  "author": "Abdellatif EL MIZEB",
   "description": "Display your website's performance metrics in your GitHub README.",
   "main": "src/index.ts",
   "scripts": {
