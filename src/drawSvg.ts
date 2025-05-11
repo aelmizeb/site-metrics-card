@@ -12,25 +12,33 @@ export function drawSvg(scores: ScoreMap, siteUrl: string): Buffer {
   // Font and Text Style
   ctx.fillStyle = '#fff';
   ctx.font = '16px Sans';
-  ctx.fillText('Website Performance Metrics : ' + siteUrl, 10, 20);
+  const headerText = 'Website Performance Metrics: ' + siteUrl;
+  const headerWidth = ctx.measureText(headerText).width;
+  ctx.fillText(headerText, (width - headerWidth) / 2, 20);
 
-  // Metric Names and Values
+  const getColor = (value: number): string => {
+    if (value >= 90) return '#34a853'; // green
+    if (value >= 50) return '#fbbc04'; // orange
+    return '#ea4335'; // red
+  };
+
   const metrics = [
-    { name: 'Performance', value: scores.performance * 100, color: '#fbbc04' },
-    { name: 'Accessibility', value: scores.accessibility * 100, color: '#fbbc04' },
-    { name: 'Best Practices', value: scores['best-practices'] * 100, color: '#34a853' },
-    { name: 'SEO', value: scores.seo * 100, color: '#34a853' },
+    { name: 'Performance', value: scores.performance * 100 },
+    { name: 'Accessibility', value: scores.accessibility * 100 },
+    { name: 'Best Practices', value: scores['best-practices'] * 100 },
+    { name: 'SEO', value: scores.seo * 100 },
   ];
 
   // Drawing circular indicators and text
   metrics.forEach((metric, index) => {
     const x = 80 + index * 120; // Position the circles horizontally
     const y = 60;
+    const color = getColor(metric.value);
 
     // Draw circle
     ctx.beginPath();
     ctx.arc(x, y, 30, 0, Math.PI * 2);
-    ctx.fillStyle = metric.color;
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.strokeStyle = '#fff';
     ctx.lineWidth = 2;
