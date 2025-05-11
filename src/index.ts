@@ -1,13 +1,22 @@
 import puppeteer from 'puppeteer';
-import lighthouse from 'lighthouse';
 import fs from 'fs';
 import { drawSvg } from './drawSvg';
 import { URL_TO_ANALYZE, OUTPUT_PATH } from '../config';
 import { ScoreMap } from './types';
 
 async function runLighthouse(url: string): Promise<any> {
-  const browser = await puppeteer.launch({ headless: true, args: ['--remote-debugging-port=9222'] });
-  const result = await lighthouse(url, { port: 9222, output: 'json' });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--remote-debugging-port=9222'],
+  });
+
+  const { default: lighthouse } = await import('lighthouse');
+
+  const result = await lighthouse(url, {
+    port: 9222,
+    output: 'json',
+  });
+
   await browser.close();
   return result?.lhr;
 }
@@ -36,4 +45,7 @@ async function main() {
   console.log(`SVG card generated at ${OUTPUT_PATH}`);
 }
 
-main();
+main().catch((err) => {
+  console.error('Error running site-metrics-card:', err);
+  process.exit(1);
+});
