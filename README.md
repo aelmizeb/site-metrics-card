@@ -15,19 +15,31 @@ A lightweight tool focused solely on analyzing and visualizing website performan
 
 ## 📦 Usage
 
-Coming soon...
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run locally:
+   ```bash
+   URL=https://www.wikipedia.org npm start
+   ```
+
+3. Or let GitHub Actions generate it daily.
 
 ## 💡 Example
 
-```
+```md
 ![My Website](https://yourusername.github.io/site-metrics-card/dist/website-metrics.svg)
 ```
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
+
 - Node.js
 - Puppeteer + Lighthouse
 - node-canvas
+- TypeScript
 - GitHub Actions
 
-📄 License
+## 📄 License
 MIT

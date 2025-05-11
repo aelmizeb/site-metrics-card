@@ -1,0 +1,21 @@
+{
+  "name": "site-metrics-card",
+  "version": "1.0.0",
+  "description": "Display your website's performance metrics in your GitHub README.",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "lighthouse": "^10.2.0",
+    "puppeteer": "^21.3.8"
+  },
+  "devDependencies": {
+    "@types/canvas": "^2.8.4",
+    "@types/node": "^20.11.30",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  },
+  "license": "MIT"
+}
