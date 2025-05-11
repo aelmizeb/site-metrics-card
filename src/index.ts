@@ -9,7 +9,7 @@ async function runLighthouse(url: string): Promise<any> {
   const browser = await puppeteer.launch({ headless: true, args: ['--remote-debugging-port=9222'] });
   const result = await lighthouse(url, { port: 9222, output: 'json' });
   await browser.close();
-  return result.lhr;
+  return result?.lhr;
 }
 
 async function main() {
@@ -18,6 +18,11 @@ async function main() {
   }
 
   const report = await runLighthouse(URL_TO_ANALYZE);
+
+  if (!report) {
+    throw new Error('Lighthouse report is undefined. Something went wrong.');
+  }
+
   const scores: ScoreMap = {
     performance: report.categories.performance.score,
     accessibility: report.categories.accessibility.score,
