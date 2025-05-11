@@ -7,7 +7,7 @@ import { ScoreMap } from './types';
 async function runLighthouse(url: string): Promise<any> {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--remote-debugging-port=9222'],
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--remote-debugging-port=9222'],
   });
 
   const { default: lighthouse } = await import('lighthouse');
