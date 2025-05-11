@@ -1,4 +1,4 @@
-# site-metrics-card
+# Site Metrics Card
 
 **Display your website's performance metrics in your GitHub README.**  
 A lightweight tool focused solely on analyzing and visualizing website performance, embeddable anywhere—including your GitHub profile README! Supports personal websites, organizations, and even repositories.
