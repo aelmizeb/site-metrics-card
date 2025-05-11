@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "canvas": "^2.11.2",
-    "lighthouse": "^10.2.0",
-    "puppeteer": "^21.3.8"
+    "lighthouse": "^12.6.0",
+    "puppeteer": "^24.8.2"
   },
   "devDependencies": {
-    "@types/canvas": "^2.8.4",
     "@types/node": "^20.11.30",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
