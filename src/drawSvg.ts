@@ -1,7 +1,7 @@
 import { createCanvas } from 'canvas';
 import { ScoreMap } from './types';
 
-export function drawSvg(scores: ScoreMap): Buffer {
+export function drawSvg(scores: ScoreMap, siteUrl: string): Buffer {
   const width = 500;
   const height = 120;
   const canvas = createCanvas(width, height, 'svg');
@@ -12,7 +12,7 @@ export function drawSvg(scores: ScoreMap): Buffer {
   // Font and Text Style
   ctx.fillStyle = '#fff';
   ctx.font = '16px Sans';
-  ctx.fillText('Website Performance Metrics', 10, 20);
+  ctx.fillText('Website Performance Metrics : ' + siteUrl, 10, 20);
 
   // Metric Names and Values
   const metrics = [

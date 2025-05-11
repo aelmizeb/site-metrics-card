@@ -39,7 +39,7 @@ async function main() {
     seo: report.categories.seo.score,
   };
 
-  const svgBuffer = drawSvg(scores);
+  const svgBuffer = drawSvg(scores, URL_TO_ANALYZE);
   fs.mkdirSync('./dist', { recursive: true });
   fs.writeFileSync(OUTPUT_PATH, svgBuffer);
   console.log(`SVG card generated at ${OUTPUT_PATH}`);
