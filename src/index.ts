@@ -37,6 +37,12 @@ async function main() {
     accessibility: report.categories.accessibility.score,
     'best-practices': report.categories['best-practices'].score,
     seo: report.categories.seo.score,
+    tti: report.audits['interactive'].numericValue / 1000,
+    si: report.audits['speed-index'].numericValue / 1000,
+    tbt: report.audits['total-blocking-time'].numericValue / 1000,
+    fcp: report.audits['first-contentful-paint'].numericValue / 1000,
+    lcp: report.audits['largest-contentful-paint'].numericValue / 1000,
+    cls: report.audits['cumulative-layout-shift'].numericValue,
   };
 
   const svgBuffer = drawSvg(scores, URL_TO_ANALYZE);
