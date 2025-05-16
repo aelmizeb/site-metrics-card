@@ -1,27 +1,40 @@
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont, CanvasRenderingContext2D } from 'canvas';
 import { ScoreMap } from './types';
 
+registerFont('./src/fonts/MaterialIcons-Regular.ttf', { family: 'Material Icons' });
+
+const CANVAS_WIDTH = 500;
+const CANVAS_HEIGHT = 280;
+const MAIN_COLOR = "#fff";
+const SECONDARY_COLOR = "#777777";
+
+function getColor(value: number): string {
+  if (value >= 90) return '#34a853'; // green
+  if (value >= 50) return '#fbbc04'; // orange
+  return '#ea4335'; // red
+}
+
 export function drawSvg(scores: ScoreMap, siteUrl: string): Buffer {
-  const width = 600;
-  const height = 260;
-  const canvas = createCanvas(width, height, 'svg');
+  const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT, 'svg');
   const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-  ctx.clearRect(0, 0, width, height); // transparent background
+  drawHeader(ctx, siteUrl);
+  drawScoreCircles(ctx, scores);
+  drawDetailedMetrics(ctx, scores);
 
-  // Font and Text Style
-  ctx.fillStyle = '#fff';
+  return canvas.toBuffer();
+}
+
+function drawHeader(ctx: CanvasRenderingContext2D, siteUrl: string) {
+  const text = `Website Performance Metrics: ${siteUrl}`;
+  ctx.fillStyle = MAIN_COLOR;
   ctx.font = '16px Sans';
-  const headerText = 'Website Performance Metrics: ' + siteUrl;
-  const headerWidth = ctx.measureText(headerText).width;
-  ctx.fillText(headerText, (width - headerWidth) / 2, 20);
+  const width = ctx.measureText(text).width;
+  ctx.fillText(text, (CANVAS_WIDTH - width) / 2, 20);
+}
 
-  const getColor = (value: number): string => {
-    if (value >= 90) return '#34a853'; // green
-    if (value >= 50) return '#fbbc04'; // orange
-    return '#ea4335'; // red
-  };
-
+function drawScoreCircles(ctx: CanvasRenderingContext2D, scores: ScoreMap) {
   const metrics = [
     { name: 'Performance', value: scores.performance * 100 },
     { name: 'Accessibility', value: scores.accessibility * 100 },
@@ -39,13 +52,13 @@ export function drawSvg(scores: ScoreMap, siteUrl: string): Buffer {
     ctx.arc(x, y, 30, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.fill();
-    ctx.strokeStyle = '#fff';
+    ctx.strokeStyle = MAIN_COLOR;
     ctx.lineWidth = 2;
     ctx.stroke();
 
     // Score text
     const scoreText = Math.round(metric.value).toString();
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = MAIN_COLOR;
     ctx.font = 'bold 16px Sans';
     const textWidth = ctx.measureText(scoreText).width;
     ctx.fillText(scoreText, x - textWidth / 2, y + 6);
@@ -53,26 +66,33 @@ export function drawSvg(scores: ScoreMap, siteUrl: string): Buffer {
     // Label
     ctx.font = '14px Sans';
     const labelWidth = ctx.measureText(metric.name).width;
-    ctx.fillText(metric.name, x - labelWidth / 2, y + 45);
+    ctx.fillText(metric.name, x - labelWidth / 2, y + 50);
   });
+}
 
-  // Detailed metrics with emojis
-  const detailedMetrics = [
-    { icon: '⏱️', label: 'Time to Interactive', value: `${scores.tti.toFixed(2)} s` },
-    { icon: '🚀', label: 'Speed Index', value: `${scores.si.toFixed(2)} s` },
-    { icon: '⛔', label: 'Total Blocking Time', value: `${scores.tbt.toFixed(2)} s` },
-    { icon: '🖼️', label: 'First Contentful Paint', value: `${scores.fcp.toFixed(2)} s` },
-    { icon: '🖼️', label: 'Largest Contentful Paint', value: `${scores.lcp.toFixed(2)} s` },
-    { icon: '📐', label: 'Cumulative Layout Shift', value: `${scores.cls.toFixed(2)}` },
+function drawDetailedMetrics(ctx: CanvasRenderingContext2D, scores: ScoreMap) {
+  const metrics = [
+    { icon: '\ue8b5', label: 'Time to Interactive', value: `${scores.tti.toFixed(2)} s` },      // schedule
+    { icon: '\ue9e4', label: 'Speed Index', value: `${scores.si.toFixed(2)} s` },               // speed
+    { icon: '\ue14b', label: 'Total Blocking Time', value: `${scores.tbt.toFixed(2)} s` },      // block
+    { icon: '\ue3ae', label: 'First Contentful Paint', value: `${scores.fcp.toFixed(2)} s` },   // paint
+    { icon: '\ue3f4', label: 'Largest Contentful Paint', value: `${scores.lcp.toFixed(2)} s` }, // image
+    { icon: '\ue41c', label: 'Cumulative Layout Shift', value: `${scores.cls.toFixed(2)}` },    // straighten
   ];
 
-  ctx.font = '14px Sans';
-  let startY = 150;
-  detailedMetrics.forEach((metric, i) => {
-    ctx.fillStyle = '#fff';
-    ctx.fillText(`${metric.icon} ${metric.label}:`, 30, startY + i * 20);
-    ctx.fillText(metric.value, 300, startY + i * 20);
-  });
+  const startY = 150;
 
-  return canvas.toBuffer();
+  metrics.forEach((metric, i) => {
+    const y = startY + i * 24;
+
+    // Icon
+    ctx.font = '20px "Material Icons"';
+    ctx.fillStyle = SECONDARY_COLOR;
+    ctx.fillText(metric.icon, 30, y + 5);
+
+    // Text
+    ctx.font = '14px Sans';
+    ctx.fillText(`${metric.label}:`, 60, y);
+    ctx.fillText(metric.value, 300, y);
+  });
 }
