@@ -1,5 +1,10 @@
 # Site Metrics Card
 
+![WIP](https://img.shields.io/badge/status-WIP-orange?style=flat-square)
+[![Snyk Vulnerabilities](https://snyk.io/test/github/aelmizeb/site-metrics-card/badge.svg)](https://snyk.io/test/github/aelmizeb/site-metrics-card)
+![Total Downloads](https://img.shields.io/github/downloads/aelmizeb/site-metrics-card/total)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **Display your website's performance metrics in your GitHub README.**  
 A lightweight tool focused solely on analyzing and visualizing website performance, embeddable anywhere—including your GitHub profile README! Supports personal websites, organizations, and even repositories.
 
