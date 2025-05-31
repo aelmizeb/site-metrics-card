@@ -1,6 +1,8 @@
 # Site Metrics Card
-
+<!--
 ![WIP](https://img.shields.io/badge/status-WIP-orange?style=flat-square)
+-->
+![Status: Stable](https://img.shields.io/badge/status-stable-brightgreen?style=flat-square)
 [![Snyk Vulnerabilities](https://snyk.io/test/github/aelmizeb/site-metrics-card/badge.svg)](https://snyk.io/test/github/aelmizeb/site-metrics-card)
 ![Total Downloads](https://img.shields.io/github/downloads/aelmizeb/site-metrics-card/total)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
