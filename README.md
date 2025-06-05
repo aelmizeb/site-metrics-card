@@ -67,9 +67,9 @@ A lightweight tool focused solely on analyzing and visualizing website performan
     - Scope: All environments (default)
 
 - Add a Scheduled Pipeline in GitLab:
-  - Go to your project → CI/CD → Schedules
-  - Click "New Schedule"
-  - Set the cron: 0 0 * * *
+  - Go to your project → Build → Pipeline schedules
+  - Click "Create a new pipeline schedule"
+  - Set the description, timezone and interval : 0 0 * * *
   - Save it
 
 ## 💡 Example
