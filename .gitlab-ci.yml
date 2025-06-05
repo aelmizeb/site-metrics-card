@@ -11,7 +11,7 @@ generate_metrics_card:
   stage: build
   variables:
     URL: 'https://www.wikipedia.org'
-    THEME: 'transparent'  # Can be overridden to "dark" or "transparent"
+    THEME: 'transparent'
   before_script:
     - npm ci
   script:
@@ -19,9 +19,9 @@ generate_metrics_card:
     - git config user.name "gitlab-ci"
     - git config user.email "aelmizeb@gmail.com"
     - git add dist/website-metrics.svg
-    - git commit -m "Update website metrics card" || echo "No changes to commit"
+    - git commit -m "Update website metrics card [skip ci]" || echo "No changes to commit"
     - git push https://oauth2:${CI_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git HEAD:$CI_COMMIT_REF_NAME
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push"'
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
     - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE !~ /skip ci/i'
