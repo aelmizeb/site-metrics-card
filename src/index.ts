@@ -4,6 +4,8 @@ import { drawSvg } from './drawSvg';
 import { URL_TO_ANALYZE, OUTPUT_PATH } from '../config';
 import { ScoreMap } from './types';
 
+const THEME = process.env.THEME === 'transparent' ? 'transparent' : 'dark';
+
 async function runLighthouse(url: string): Promise<any> {
   const browser = await puppeteer.launch({
     headless: true,
@@ -45,7 +47,7 @@ async function main() {
     cls: report.audits['cumulative-layout-shift'].numericValue,
   };
 
-  const svgBuffer = drawSvg(scores, URL_TO_ANALYZE);
+  const svgBuffer = drawSvg(scores, URL_TO_ANALYZE, THEME);
   fs.mkdirSync('./dist', { recursive: true });
   fs.writeFileSync(OUTPUT_PATH, svgBuffer);
   console.log(`SVG card generated at ${OUTPUT_PATH}`);
