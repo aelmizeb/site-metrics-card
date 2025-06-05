@@ -17,7 +17,7 @@ A lightweight tool focused solely on analyzing and visualizing website performan
 - Analyze any public website
 - Measure Core Web Vitals using Lighthouse
 - Generate an embeddable SVG card with performance scores
-- Automate generation with GitHub Actions
+- Automate generation with GitHub Actions / GitLab CI
 - Simple to integrate into your README
 
 ## 📦 Usage
@@ -57,6 +57,7 @@ A lightweight tool focused solely on analyzing and visualizing website performan
 - node-canvas
 - TypeScript
 - GitHub Actions
+- GitLab CI
 
 ## 📄 License
 MIT

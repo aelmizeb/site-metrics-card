@@ -29,6 +29,7 @@ jobs:
         run: npx ts-node src/index.ts
         env:
           URL: 'https://www.wikipedia.org'
+          THEME: 'transparent'  # Can be overridden to "dark" or "transparent"
 
       - name: Commit and push
         run: |
