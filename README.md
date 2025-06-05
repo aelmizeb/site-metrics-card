@@ -44,6 +44,34 @@ A lightweight tool focused solely on analyzing and visualizing website performan
    ```
 - Ensure GitHub Actions has permission to read and write to your repository.
 
+4. **Or generate it daily using GitLab CI**
+
+- Clone the repo.
+- Edit the URL in .gitlab-ci.yaml:
+
+ ```bash
+  variables:
+    URL: 'https://www.wikipedia.org'
+    THEME: 'transparent'  # Can be overridden to "dark" or "transparent"
+ ```
+- Create a Personal Access Token (PAT) on GitLab
+  - Go to your GitLab profile → Preferences → Access Tokens
+  - Create a token with the following scopes: api, write_repository
+  - Copy the token — you won’t be able to see it again.
+
+- Add it as a GitLab CI/CD secret variable
+  - Go to your project → Settings → CI/CD → Variables.
+  - Add a new variable:
+    - Key: CI_PUSH_TOKEN
+    - Value: (paste your PAT here)
+    - Scope: All environments (default)
+
+- Add a Scheduled Pipeline in GitLab:
+  - Go to your project → CI/CD → Schedules
+  - Click "New Schedule"
+  - Set the cron: 0 0 * * *
+  - Save it
+
 ## 💡 Example
 
 ```md

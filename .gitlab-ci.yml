@@ -11,7 +11,7 @@ generate_metrics_card:
   stage: build
   variables:
     URL: 'https://www.wikipedia.org'
-    THEME: 'transparent'
+    THEME: 'transparent'  # Can be overridden to "dark" or "transparent"
   before_script:
     - npm ci
   script:
